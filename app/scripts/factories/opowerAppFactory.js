@@ -8,6 +8,7 @@ opowerAppService.factory('opowerAppFactory', function ($resource) {
                         {method: 'POST',
                             headers: {'Content-Type': 'application/json;charset=utf-8'}
                         },
-                query: {method: 'GET', isArray: false}
+             query: {method: 'GET', isArray: false},
+             update: {method: 'PUT'}
             });
 });

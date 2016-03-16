@@ -23,7 +23,8 @@
       </div>
     </div>
 </form>
-<table class="table table-bordered table-condensed">
+
+<table class="table table-bordered table-condensed table-striped">
     <thead>
       <tr>
         <th>Nom</th>
@@ -36,6 +37,11 @@
         <td>{{person.forename}}</td>
         <td>{{person.surname}}</td>
         <td>{{person.mail}}</td>
+        <td>
+            <button type="button" class="btn btn-default" ng-click="edit(person)">
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+            </button>
+        </td>
       </tr>
     </tbody>
   </table>

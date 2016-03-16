@@ -87,3 +87,7 @@ body {
 form.tab-form-demo .tab-pane {
     margin: 20px 20px 20px 20px;
   }
+  
+.alert {
+  display:inline-block;
+}
