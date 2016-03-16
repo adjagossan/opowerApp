@@ -12,7 +12,7 @@ angular
     'ui.router',
     'opowerAppService'
   ])
-  .config(function ($routeProvider, $httpProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',

@@ -4,6 +4,7 @@ var editingMode = false;
 angular.module('opowerApp')
   .controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
     
+    $scope.persons = [];
     
     $scope.Tabs = [
         {id : 0, heading: 'Person', active : true, templateUrl:'/views/person.html'},
@@ -11,21 +12,23 @@ angular.module('opowerApp')
         {id : 2, heading: 'Smart device', active : false, templateUrl:'/views/smart.html'}
       ];
       
-    $scope.data = opowerAppFactory.query(function(){
-        $scope.persons = $scope.data.persons;
+    $scope.data = opowerAppFactory.query(function(data){
+        //$scope.persons = $scope.data.persons;
+        if(data.persons !== undefined)
+            $scope.persons.push(data.persons);  
     });
     
     $scope.submit = function(person){
-        $scope.person = angular.copy(person);
+        //$scope.person = angular.copy(person);
         
         if(!editingMode){
-        opowerAppFactory.save($scope.person, function(data){
+        opowerAppFactory.save(/*$scope.*/person, function(data){
                $scope.persons.push(data);
            });
         }
         
         if(editingMode){
-            opowerAppFactory.update({personId:$scope.person.id}, $scope.person, function(data){
+            opowerAppFactory.update({personId:/*$scope.*/person.id}, /*$scope.*/person, function(data){
                     $scope.person = data;
             });
         }
@@ -36,6 +39,13 @@ angular.module('opowerApp')
         $log.log(person);
         $scope.person = person;
         editingMode = true;
+    }
+    
+    $scope.remove = function(person){
+        opowerAppFactory.remove({personId:person.id}, /*person,*/ function(data){
+            var index = $scope.persons.indexOf(person);        
+            $scope.persons.splice(index, 1);
+        });
     }
   })
 ;

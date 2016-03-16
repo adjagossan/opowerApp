@@ -39,7 +39,12 @@
         <td>{{person.mail}}</td>
         <td>
             <button type="button" class="btn btn-default" ng-click="edit(person)">
-                <span class="glyphicon glyphicon-pencil"></span> Edit
+                <a href=""><span class="glyphicon glyphicon-pencil"></span></a> Edit
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-default" ng-click="remove(person)">
+                <a href=""><span class="glyphicon glyphicon-trash"></span></a> Remove
             </button>
         </td>
       </tr>

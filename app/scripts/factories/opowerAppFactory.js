@@ -9,6 +9,9 @@ opowerAppService.factory('opowerAppFactory', function ($resource) {
                             headers: {'Content-Type': 'application/json;charset=utf-8'}
                         },
              query: {method: 'GET', isArray: false},
-             update: {method: 'PUT'}
+             update: {method: 'PUT'},
+             remove: {method: 'DELETE',
+                            headers: {'Content-Type': 'application/json;charset=utf-8'}
+                     }
             });
 });
