@@ -13,9 +13,11 @@ angular.module('opowerApp')
       ];
       
     $scope.data = opowerAppFactory.query(function(data){
-        //$scope.persons = $scope.data.persons;
+        $log.log(data.persons);
         if(data.persons !== undefined)
-            $scope.persons.push(data.persons);  
+        {
+            $scope.persons=data.persons;
+        } 
     });
     
     $scope.submit = function(person){
