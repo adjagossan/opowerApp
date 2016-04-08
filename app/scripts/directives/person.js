@@ -1,3 +1,4 @@
+'use strict';
 var pokeDirective = angular.module('pokeDirective', []);
 pokeDirective.directive('pokedex', function(){
 	return {

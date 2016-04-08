@@ -9,7 +9,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'ui.router',
+    /*'ui.router',*/
     'opowerAppService'
   ])
   .config(function ($routeProvider) {

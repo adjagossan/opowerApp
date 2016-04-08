@@ -117,7 +117,7 @@ grunt.loadNpmTasks('grunt-connect-proxy');
               connect.static(appConfig.app)
             ];
         middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
- 
+
   return middlewares;
 
           }
@@ -237,7 +237,7 @@ grunt.loadNpmTasks('grunt-connect-proxy');
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
-    }, 
+    },
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
