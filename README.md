@@ -1,12 +1,19 @@
-# test
+# opowerApp
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
+Cet projet is généré avec [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.15.1.
+
+C'est une interface web développé sous [AngularJS](https://angularjs.org/) qui
+utlise les services de lecture (`GET`), d'écriture (`POST`), de mise à jour (`PUT`) et de suppression (`DELETE`) du web service [tpJpaWebservice](https://github.com/adjagossan/tpJpaWebservice)
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Executez les commandes suivantes:
 
-## Testing
+`npm i`
 
-Running `grunt test` will run the unit tests with karma.
+`bower i`
+
+`grunt`
+
+`grunt serve`
