@@ -105,7 +105,7 @@ grunt.loadNpmTasks('grunt-connect-proxy');
       },
       test: {
         options: {
-          port: 9001,
+          port: 9002,
           middleware: function (connect) {
   var middlewares = [
               connect.static('.tmp'),
