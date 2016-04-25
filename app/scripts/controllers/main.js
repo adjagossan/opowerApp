@@ -1,7 +1,7 @@
 'use strict';
 var editingMode = false;
-var updatedPerson = {};
 var id_ = -1; //ID de personne à supprimer
+var emptyObject = {};
 var opowerApp = angular.module('opowerApp');
 
 opowerApp.controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
@@ -11,10 +11,10 @@ opowerApp.controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
         {id : 1, heading: 'Home', active : false, templateUrl:'/views/home.html'},
         {id : 2, heading: 'Smart device', active : false, templateUrl:'/views/smart.html'}
       ];
-
+    $scope.person = angular.copy(emptyObject);
     //GET
     opowerAppFactory.query(function(data){
-        if(data.persons !== /*undefined*/null)
+        if(data.persons !== undefined)
         {
             if(data.persons.length > 1){
                 $scope.persons=data.persons;
@@ -27,16 +27,16 @@ opowerApp.controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
         $scope.serverResponse = data.status+' '+data.statusText;
     });
 
-    $scope.submit = function(person)
+    $scope.submit = function()
     {
-        if(person !== null)
+        if($scope.isValid($scope.person))
         {
                 $scope.loading = true;
                 //POST
                 if(!editingMode){
-                    opowerAppFactory.save(person, function(data){
+                    opowerAppFactory.save($scope.person, function(data){
                             $scope.persons.push(data);
-                            $scope.reset(person, 'POST');
+                            $scope.person = angular.copy(emptyObject);
                             $scope.loading = false;
                        }, function(response){
                             $scope.serverResponse = response.status+' '+response.statusText;
@@ -45,11 +45,12 @@ opowerApp.controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
                 }
                 //PUT
                 if(editingMode){
-                        opowerAppFactory.update({personId:person.id}, person, function(data){
-                                updatedPerson.forename = data.forename;
-                                updatedPerson.surname = data.surname;
-                                updatedPerson.mail = data.mail;
-                                $scope.reset(person, 'PUT');
+                        opowerAppFactory.update({personId:$scope.person.id}, $scope.person, function(data){
+                                id_ = data.id;
+                                var index = $scope.persons.findIndex($scope.getPersonIndex);
+                                //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/fill
+                                $scope.persons.fill(data, index, index+1);
+                                $scope.person = angular.copy(emptyObject);
                                 $scope.loading = false;
                         }, function(response){
                                 $scope.serverResponse = response.status+' '+response.statusText;
@@ -62,14 +63,13 @@ opowerApp.controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
 
     $scope.edit = function(person){
         $scope.person = angular.copy(person);
-        updatedPerson = person;
         editingMode = true;
     };
     //DELETE
     $scope.remove = function(person){
               $scope.loading = true;
-              id_ = person.id;
               opowerAppFactory.remove({personId:person.id}, function(data){
+              id_ = data.id;
               //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/findIndex
               var index = $scope.persons.findIndex($scope.getPersonIndex);
               $scope.persons.splice(index, 1);
@@ -86,13 +86,8 @@ opowerApp.controller('MainCtrl', function ($scope, $log, opowerAppFactory) {
         return false;
     };
 
-    $scope.reset = function(person, typeRequest){
-      delete person.forename;
-      delete person.surname;
-      delete person.mail;
-      if(typeRequest === 'PUT')
-            delete person.id;
+    $scope.isValid = function(person){
+        return (person.forename !== undefined && person.surname !== undefined && person.mail !== undefined);
     };
-
   })
 ;
